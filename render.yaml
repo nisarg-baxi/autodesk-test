@@ -1,7 +1,7 @@
 services:
   - type: web
     name: member-service-api
-    runtime: dotnet
+    runtime: docker
     plan: free
     autoDeploy: true
     branch: main
