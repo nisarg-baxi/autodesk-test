@@ -1,6 +1,6 @@
 # 👥 MemberService API
 
-A lightweight, cloud-ready RESTful service to manage **Member records**. This project is built using **.NET 6 Web API** with **SQLite** as the database and follows professional architectural practices including layered services, repository pattern, error handling middleware, and Swagger documentation.
+A lightweight, cloud-ready RESTful service to manage **Member records**. This project is built using **.NET 8 Web API** with **SQLite** as the database and follows professional architectural practices including layered services, repository pattern, error handling middleware, and Swagger documentation.
 
 ---
 
@@ -17,11 +17,11 @@ A lightweight, cloud-ready RESTful service to manage **Member records**. This pr
 
 ## 🧱 Tech Stack
 
-- .NET 6 Web API
+- .NET 8 Web API
 - Entity Framework Core
 - SQLite
 - Swagger (OpenAPI)
-- Optional: Render or Railway for deployment
+- Render or Railway for deployment
 
 ---
 
@@ -42,11 +42,14 @@ MemberService.Api/
 
 ## 🎯 API Endpoints
 
-| Method | Route               | Description            |
-| ------ | ------------------- | ---------------------- |
-| GET    | `/api/members`      | Get all member records |
-| PUT    | `/api/members/{id}` | Update member by ID    |
-| DELETE | `/api/members/{id}` | Delete member by ID    |
+| Method | Route               | Description              |
+| ------ | ------------------- | ------------------------ |
+| GET    | `/api/members`      | Get all member records   |
+| GET    | `/api/members/{id}` | Get member records by ID |
+| PUT    | `/api/members/{id}` | Update member by ID      |
+| POST   | `/api/members/{id}` | Delete member by ID      |
+| PATCH  | `/api/members/{id}` | Delete member by ID      |
+| DELETE | `/api/members/{id}` | Delete member by ID      |
 
 ---
 
@@ -54,7 +57,7 @@ MemberService.Api/
 
 ### Prerequisites
 
-- [.NET 6 SDK](https://dotnet.microsoft.com/en-us/download)
+- [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download)
 - [SQLite](https://www.sqlite.org/download.html)
 - [EF Core CLI](https://docs.microsoft.com/en-us/ef/core/cli/dotnet)
 
@@ -104,7 +107,7 @@ This project can be deployed to:
 
 ---
 
-## 💼 Explaining to Customers
+## 💼 Note to Developers using this API
 
 This API acts as the digital backbone of a membership system — ideal for employee directories, club management systems, or CRM integrations. It offers a clean, extensible foundation for managing member data with full CRUD capabilities and clean separation of concerns, ensuring maintainability and scalability.
 
@@ -114,9 +117,7 @@ This API acts as the digital backbone of a membership system — ideal for emplo
 
 - Add authentication and authorization
 - Pagination for GET endpoints
-- Create and Read single member endpoints
 - Add search/filter capabilities
-- Unit and integration testing
 
 ---
 
