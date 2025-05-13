@@ -97,19 +97,53 @@ MemberService.Api/
 
 ## 🌍 Deployment
 
-This project can be deployed to:
+This project is hosted live on Render:
 
-- [Render](https://render.com/)
-- [Railway](https://railway.app/)
-- Azure App Service
+🔗 **Live API**: [https://autodesk-test.onrender.com/swagger/index.html](https://autodesk-test.onrender.com/swagger/index.html)
 
-> For deployment, ensure you configure the `members.db` file as a persistent volume or use a production-grade DB.
+Render auto-builds the project using Docker. The SQLite database is recreated on each deployment (non-persistent) for demonstration purposes.
+
+### 🐳 Docker Configuration
+
+To run the API locally using Docker:
+
+1. Build the Docker image:
+
+   ```bash
+   docker build -t member-service-api .
+   ```
+
+2. Run the container:
+
+   ```bash
+   docker run -d -p 8080:8080 member-service-api
+   ```
+
+3. Open in browser:
+   ```
+   http://localhost:8080/swagger
+   ```
+
+> SQLite is configured to use `/tmp/member.db` as the database path for compatibility with Docker and Render's ephemeral file system.
 
 ---
 
-## 💼 Note to Developers using this API
+## 📘 For Developers Consuming This API
 
 This API acts as the digital backbone of a membership system — ideal for employee directories, club management systems, or CRM integrations. It offers a clean, extensible foundation for managing member data with full CRUD capabilities and clean separation of concerns, ensuring maintainability and scalability.
+
+If you're building a frontend or integrating with this API, here are some helpful notes:
+
+- All endpoints are RESTful and return standard HTTP status codes (`200`, `201`, `204`, `404`).
+- Requests and responses use `application/json`.
+- Use `/api/members` to retrieve or manage members.
+- To update a member:
+  - Use `PUT` to fully replace the record.
+  - Use `PATCH` to modify only selected fields.
+- Swagger UI is enabled at `/swagger` with full schema documentation.
+- Authentication is not required (yet), making it easy to test.
+
+Let us know if your application needs additional endpoints or features.
 
 ---
 
