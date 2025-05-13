@@ -55,10 +55,10 @@ namespace MemberService.Tests
         [Fact]
         public async Task Create_ReturnsCreatedResult_WithLocation()
         {
-            var input = new Member { FullName = "New Member" };
+            var input = new CreateMemberDto { FullName = "New Member", Email = "new@member.com", DateOfBirth = DateTime.Now, Status = "Active" };
             var created = new Member { Id = 99, FullName = "New Member" };
 
-            _mockService.Setup(s => s.CreateAsync(input)).ReturnsAsync(created);
+            _mockService.Setup(s => s.CreateAsync(It.IsAny<Member>())).ReturnsAsync(created);
 
             var result = await _controller.Create(input);
 
@@ -70,10 +70,13 @@ namespace MemberService.Tests
         [Fact]
         public async Task Update_ReturnsNoContent_WhenSuccess()
         {
-            var member = new Member { Id = 1, FullName = "Updated" };
-            _mockService.Setup(s => s.UpdateAsync(1, member)).ReturnsAsync(true);
+            var input = new PutMemberDto { FullName = "Updated", Email = "a@b.com", PhoneNumber = "123456", DateOfBirth = DateTime.Today, Status = "Active" };
+            var existing = new Member { Id = 1 };
 
-            var result = await _controller.Update(1, member);
+            _mockService.Setup(s => s.GetByIdAsync(1)).ReturnsAsync(existing);
+            _mockService.Setup(s => s.UpdateAsync(1, It.IsAny<Member>())).ReturnsAsync(true);
+
+            var result = await _controller.Update(1, input);
 
             Assert.IsType<NoContentResult>(result);
         }
@@ -81,10 +84,11 @@ namespace MemberService.Tests
         [Fact]
         public async Task Update_ReturnsNotFound_WhenMissing()
         {
-            var member = new Member { Id = 2 };
-            _mockService.Setup(s => s.UpdateAsync(2, member)).ReturnsAsync(false);
+            var input = new PutMemberDto { FullName = "X", Email = "x@y.com", DateOfBirth = DateTime.Today, Status = "Inactive" };
 
-            var result = await _controller.Update(2, member);
+            _mockService.Setup(s => s.GetByIdAsync(2)).ReturnsAsync((Member?)null);
+
+            var result = await _controller.Update(2, input);
 
             Assert.IsType<NotFoundResult>(result);
         }
@@ -112,12 +116,12 @@ namespace MemberService.Tests
         [Fact]
         public async Task Patch_ReturnsNoContent_WhenSuccessful()
         {
-            var existing = new Member { Id = 1, FullName = "Original Name", Email = "old@email.com" };
+            var existing = new Member { Id = 1, FullName = "Original Name" };
 
             _mockService.Setup(s => s.GetByIdAsync(1)).ReturnsAsync(existing);
             _mockService.Setup(s => s.UpdateAsync(1, It.IsAny<Member>())).ReturnsAsync(true);
 
-            var patch = new Member { FullName = "Patched Name" };
+            var patch = new UpdateMemberDto { FullName = "Patched Name" };
 
             var result = await _controller.Patch(1, patch);
 
@@ -129,7 +133,7 @@ namespace MemberService.Tests
         {
             _mockService.Setup(s => s.GetByIdAsync(99)).ReturnsAsync((Member?)null);
 
-            var patch = new Member { FullName = "Missing Member" };
+            var patch = new UpdateMemberDto { FullName = "Missing" };
 
             var result = await _controller.Patch(99, patch);
 
