@@ -42,14 +42,14 @@ MemberService.Api/
 
 ## 🎯 API Endpoints
 
-| Method | Route               | Description              |
-| ------ | ------------------- | ------------------------ |
-| GET    | `/api/members`      | Get all member records   |
-| GET    | `/api/members/{id}` | Get member records by ID |
-| PUT    | `/api/members/{id}` | Update member by ID      |
-| POST   | `/api/members/{id}` | Delete member by ID      |
-| PATCH  | `/api/members/{id}` | Delete member by ID      |
-| DELETE | `/api/members/{id}` | Delete member by ID      |
+| Method | Route               | Description                         |
+| ------ | ------------------- | ----------------------------------- |
+| GET    | `/api/members`      | Get all member records              |
+| GET    | `/api/members/{id}` | Get member records by ID            |
+| PUT    | `/api/members/{id}` | Update whole member record by ID    |
+| POST   | `/api/members/{id}` | Create new member record            |
+| PATCH  | `/api/members/{id}` | Update specific member detail by ID |
+| DELETE | `/api/members/{id}` | Delete member by ID                 |
 
 ---
 
