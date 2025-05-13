@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: member-service-api
+    runtime: dotnet
+    plan: free
+    autoDeploy: true
+    branch: main
+    buildCommand: dotnet build
+    startCommand: dotnet MemberService.Api.dll
+    rootDir: MemberService.Api

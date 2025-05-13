@@ -39,6 +39,12 @@ builder.Services.AddSwaggerGen(options =>
 });
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<MemberDbContext>();
+    db.Database.Migrate(); // applies migrations automatically
+}
+
 app.UseMiddleware<ErrorHandlingMiddleware>();
 app.UseSwagger();
 app.UseSwaggerUI(c =>
@@ -47,4 +53,4 @@ app.UseSwaggerUI(c =>
 });
 app.UseAuthorization();
 app.MapControllers();
-app.Run();
+app.Run("http://0.0.0.0:" + (Environment.GetEnvironmentVariable("PORT") ?? "5000"));
